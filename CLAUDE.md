@@ -12,6 +12,8 @@ Sitio personal en Astro, desplegado en Netlify. Responde en español y sé conci
 
 - `src/data/site.ts`: datos de contacto, stack y proyectos (con URLs de Netlify)
 - `src/pages/index.astro`: todas las secciones
+- `src/components/SiteHeader.astro` y `SiteFooter.astro`: encabezado (nav con `/#ancla`) y pie, compartidos por el índice y los casos
+- `src/data/casos.ts`: contenido de los casos de estudio (RetailIA y pipeline de Moriah); `src/pages/casos/[slug].astro` los genera; estilos en `src/styles/casos.css`
 - `src/layouts/Base.astro`: head, fuentes y scripts (menú móvil, copiar correo, arranque tipo terminal del hero)
 - `src/styles/global.css`: tokens en `:root` y todos los estilos
 - `src/styles/features.css`: capturas en tarjetas, línea de tiempo y terminal
@@ -32,6 +34,8 @@ Futurista pro con esencia ciberpunk elegante. Restricción: la audacia vive en e
 
 ## Decisiones tomadas
 
+- Orden de secciones: Hero, Sobre mí, Proyectos, Casos de estudio, Trayectoria, Desarrollo con IA, Stack, Estudio, Terminal, Contacto (primero la evidencia, luego el detalle; la terminal es un extra antes de contactar)
+- Los casos solo afirman lo que Román ha confirmado; el pipeline de Moriah se declara "En construcción" y sin resultados. Agregar datos reales cuando existan
 - Hosting en Netlify con subdominio por ahora (sin dominio propio). Cuando exista, agregar `site` en `astro.config.mjs`
 - Nácar y Umbra llevan la etiqueta "Concepto de práctica" porque son landings de negocios ficticios
 - La Trayectoria es una línea de tiempo con cargos y fechas tomados del CV de Román (sin cifras inventadas); los logros solo reflejan lo que dice su CV
@@ -43,5 +47,5 @@ Futurista pro con esencia ciberpunk elegante. Restricción: la audacia vive en e
 1. Mantener `public/cv-roman-madrigal.pdf` al día cuando cambie el CV
 2. Capturas de Biblia App y Calculadora de pintura (faltan; las otras tres ya están en `public/proyectos/`)
 3. Contacto: evaluar enlace directo a WhatsApp de Moriah Studio
-4. Valorar versión en inglés y dos casos de estudio (RetailIA y el pipeline de agentes de Moriah)
+4. Valorar versión en inglés; enlazar el repo de RetailIA en su caso si es público
 5. Dominio propio (definir `site` en `astro.config.mjs`; mientras tanto se usa la URL de Netlify). La imagen para compartir ya existe en `public/og.png`

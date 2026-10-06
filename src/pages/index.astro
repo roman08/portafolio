@@ -1,9 +1,12 @@
 ---
 import Base from '../layouts/Base.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
 import { site, stack, projects, experience } from '../data/site';
+import { casos } from '../data/casos';
 import '../styles/features.css';
+import '../styles/casos.css';
 
-const year = new Date().getFullYear();
 const title = `${site.name}, ${site.role}`;
 
 const termData = {
@@ -24,45 +27,7 @@ const shortcuts = ['ayuda', 'sobre', 'stack', 'proyectos', 'experiencia', 'conta
 ---
 
 <Base title={title} description={site.description}>
-  <header class="site-header">
-    <div class="wrap site-header__bar">
-      <a class="brand" href="#inicio" aria-label="Román Madrigal, inicio">
-        <svg viewBox="0 0 64 64" aria-hidden="true">
-          <defs>
-            <linearGradient id="brand-g" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#00F0FF"></stop>
-              <stop offset="1" stop-color="#FF2BD6"></stop>
-            </linearGradient>
-          </defs>
-          <path d="M0 0H50L64 14V64H14L0 50Z" fill="#0B0F1A"></path>
-          <path d="M2 2H49L62 15V62H15L2 49Z" fill="none" stroke="url(#brand-g)" stroke-width="3"></path>
-          <path
-            d="M20 46V18H33C39 18 42 21 42 26C42 31 39 34 33 34H20M33 34L44 46"
-            fill="none"
-            stroke="#E8EDFF"
-            stroke-width="4"
-            stroke-linejoin="round"></path>
-        </svg>
-        <span>{site.name}</span>
-      </a>
-
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <path d="M3 7h18M3 12h18M3 17h18"></path>
-        </svg>
-      </button>
-
-      <nav class="nav" id="menu" aria-label="Principal">
-        <a href="#sobre-mi">Sobre mí</a>
-        <a href="#stack">Stack</a>
-        <a href="#proyectos">Proyectos</a>
-        <a href="#trayectoria">Trayectoria</a>
-        <a href="#terminal">Terminal</a>
-        <a href="#estudio">Estudio</a>
-        <a class="btn btn--small" href="#contacto">Contactar</a>
-      </nav>
-    </div>
-  </header>
+  <SiteHeader />
 
   <main id="contenido">
     <!-- Hero -->
@@ -155,27 +120,6 @@ const shortcuts = ['ayuda', 'sobre', 'stack', 'proyectos', 'experiencia', 'conta
       </div>
     </section>
 
-    <!-- Stack -->
-    <section class="section" id="stack">
-      <div class="wrap">
-        <div class="section__head"><h2>Stack</h2></div>
-        <div class="stack-grid">
-          {
-            stack.map((group) => (
-              <div class="stack-group">
-                <h3>{group.title}</h3>
-                <ul>
-                  {group.items.map((item) => (
-                    <li class="chip">{item}</li>
-                  ))}
-                </ul>
-              </div>
-            ))
-          }
-        </div>
-      </div>
-    </section>
-
     <!-- Proyectos -->
     <section class="section" id="proyectos">
       <div class="wrap">
@@ -242,6 +186,66 @@ const shortcuts = ['ayuda', 'sobre', 'stack', 'proyectos', 'experiencia', 'conta
       </div>
     </section>
 
+    <!-- Casos de estudio -->
+    <section class="section" id="casos">
+      <div class="wrap">
+        <div class="section__head"><h2>Casos de estudio</h2></div>
+        <p class="lead">Dos proyectos explicados con las decisiones detrás: qué problema había, qué elegí y por qué.</p>
+        <div class="cases">
+          {
+            casos.map((c) => (
+              <article class="case-card" style={`--accent:${c.accent}`}>
+                <p class="case-card__meta">
+                  {c.kind} · {c.status}
+                </p>
+                <h3>{c.cardTitle}</h3>
+                <p>{c.summary}</p>
+                <ul class="tags">
+                  {c.tags.map((tag) => (
+                    <li class="tag">{tag}</li>
+                  ))}
+                </ul>
+                <a class="btn btn--small" href={`/casos/${c.slug}/`}>
+                  Leer el caso<span class="sr-only"> de {c.cardTitle}</span>
+                </a>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Trayectoria -->
+    <section class="section" id="trayectoria">
+      <div class="wrap">
+        <div class="section__head"><h2>Trayectoria</h2></div>
+        <ol class="timeline" role="list">
+          {
+            experience.map((e) => (
+              <li class="tl-item">
+                <p class="tl-when">
+                  <span>{e.start} –</span>
+                  <span>{e.end}</span>
+                </p>
+                <div class="tl-body">
+                  <h3 class="tl-role">{e.role}</h3>
+                  <p class="tl-company">{e.company}</p>
+                  <span class="tl-tag">{e.tag}</span>
+                  {e.points.length > 0 && (
+                    <ul class="tl-points">
+                      {e.points.map((pt) => (
+                        <li>{pt}</li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </section>
+
     <!-- IA -->
     <section class="section" id="ia">
       <div class="wrap">
@@ -264,6 +268,63 @@ const shortcuts = ['ayuda', 'sobre', 'stack', 'proyectos', 'experiencia', 'conta
           <div class="ai-item">
             <h3>APIs de LLM</h3>
             <p>Integro modelos de lenguaje en aplicaciones web, desde el backend hasta la interfaz.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stack -->
+    <section class="section" id="stack">
+      <div class="wrap">
+        <div class="section__head"><h2>Stack</h2></div>
+        <div class="stack-grid">
+          {
+            stack.map((group) => (
+              <div class="stack-group">
+                <h3>{group.title}</h3>
+                <ul>
+                  {group.items.map((item) => (
+                    <li class="chip">{item}</li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Estudio -->
+    <section class="section" id="estudio">
+      <div class="wrap">
+        <div class="studio">
+          <div class="studio__frame">
+            <div class="studio__body">
+              <div>
+                <h2>Moriah Studio</h2>
+                <p>
+                  Mi estudio para negocios que quieren crecer con tecnología. Diseño sitios que se ven bien,
+                  cargan rápido y llevan al cliente a contactarte.
+                </p>
+                <a class="btn btn--primary" href={site.studio} target="_blank" rel="noopener noreferrer">
+                  Visitar Moriah Studio
+                </a>
+              </div>
+              <ul class="services">
+                <li>
+                  <strong>Diseño web</strong>
+                  <span>Sitios y landings a la medida de tu marca.</span>
+                </li>
+                <li>
+                  <strong>Automatización</strong>
+                  <span>Procesos que dejan de depender de tareas manuales.</span>
+                </li>
+                <li>
+                  <strong>Desarrollo a la medida</strong>
+                  <span>Sistemas y aplicaciones web para lo que tu negocio necesita.</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -327,73 +388,6 @@ const shortcuts = ['ayuda', 'sobre', 'stack', 'proyectos', 'experiencia', 'conta
       </div>
     </section>
 
-    <!-- Trayectoria -->
-    <section class="section" id="trayectoria">
-      <div class="wrap">
-        <div class="section__head"><h2>Trayectoria</h2></div>
-        <ol class="timeline" role="list">
-          {
-            experience.map((e) => (
-              <li class="tl-item">
-                <p class="tl-when">
-                  <span>{e.start} –</span>
-                  <span>{e.end}</span>
-                </p>
-                <div class="tl-body">
-                  <h3 class="tl-role">{e.role}</h3>
-                  <p class="tl-company">{e.company}</p>
-                  <span class="tl-tag">{e.tag}</span>
-                  {e.points.length > 0 && (
-                    <ul class="tl-points">
-                      {e.points.map((pt) => (
-                        <li>{pt}</li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              </li>
-            ))
-          }
-        </ol>
-      </div>
-    </section>
-
-    <!-- Estudio -->
-    <section class="section" id="estudio">
-      <div class="wrap">
-        <div class="studio">
-          <div class="studio__frame">
-            <div class="studio__body">
-              <div>
-                <h2>Moriah Studio</h2>
-                <p>
-                  Mi estudio para negocios que quieren crecer con tecnología. Diseño sitios que se ven bien,
-                  cargan rápido y llevan al cliente a contactarte.
-                </p>
-                <a class="btn btn--primary" href={site.studio} target="_blank" rel="noopener noreferrer">
-                  Visitar Moriah Studio
-                </a>
-              </div>
-              <ul class="services">
-                <li>
-                  <strong>Diseño web</strong>
-                  <span>Sitios y landings a la medida de tu marca.</span>
-                </li>
-                <li>
-                  <strong>Automatización</strong>
-                  <span>Procesos que dejan de depender de tareas manuales.</span>
-                </li>
-                <li>
-                  <strong>Desarrollo a la medida</strong>
-                  <span>Sistemas y aplicaciones web para lo que tu negocio necesita.</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- Contacto -->
     <section class="section" id="contacto">
       <div class="wrap contact">
@@ -436,12 +430,7 @@ const shortcuts = ['ayuda', 'sobre', 'stack', 'proyectos', 'experiencia', 'conta
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="wrap">
-      <span>© {year} {site.name}</span>
-      <span>{site.location}</span>
-    </div>
-  </footer>
+  <SiteFooter />
   <script>
     import '../scripts/terminal';
   </script>

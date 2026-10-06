@@ -1,0 +1,87 @@
+---
+import Base from '../../layouts/Base.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import { site } from '../../data/site';
+import { casos } from '../../data/casos';
+import '../../styles/casos.css';
+
+export function getStaticPaths() {
+  return casos.map((caso, i) => ({
+    params: { slug: caso.slug },
+    props: { caso, otro: casos[(i + 1) % casos.length] },
+  }));
+}
+
+const { caso, otro } = Astro.props;
+---
+
+<Base title={`${caso.cardTitle}, caso de estudio | ${site.name}`} description={caso.summary}>
+  <SiteHeader />
+
+  <main id="contenido">
+    <article class="case" style={`--accent:${caso.accent}`}>
+      <div class="wrap case__wrap">
+        <a class="case__back" href="/#casos">Volver al portafolio</a>
+
+        <header class="case__head">
+          <h1>{caso.title}</h1>
+          <p class="case__summary">{caso.summary}</p>
+          <dl class="case__facts">
+            <div>
+              <dt>Tipo</dt>
+              <dd>{caso.kind}</dd>
+            </div>
+            <div>
+              <dt>Estado</dt>
+              <dd>{caso.status}</dd>
+            </div>
+            <div>
+              <dt>Tecnologías</dt>
+              <dd>{caso.tags.join(', ')}</dd>
+            </div>
+          </dl>
+        </header>
+
+        {
+          caso.sections.map((s) => (
+            <section class="case__section">
+              <h2>{s.title}</h2>
+              {s.paragraphs?.map((p) => <p>{p}</p>)}
+              {s.items && (
+                <ul class="case__list">
+                  {s.items.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              )}
+              {s.steps && (
+                <ol class="flow" role="list">
+                  {s.steps.map((step) => (
+                    <li class="flow__step">
+                      <h3>{step.title}</h3>
+                      <p>{step.text}</p>
+                    </li>
+                  ))}
+                </ol>
+              )}
+            </section>
+          ))
+        }
+
+        <aside class="case__next" aria-label="Más casos y contacto">
+          <div>
+            <p>Otro caso</p>
+            <a href={`/casos/${otro.slug}/`}>{otro.cardTitle}</a>
+          </div>
+          <div>
+            <p>¿Hablamos?</p>
+            <a href={`mailto:${site.email}`}>{site.email}</a>
+          </div>
+        </aside>
+      </div>
+    </article>
+  </main>
+
+  <SiteFooter />
+</Base>
