@@ -1,0 +1,101 @@
+---
+import '@fontsource/chakra-petch/500.css';
+import '@fontsource/chakra-petch/600.css';
+import '@fontsource/chakra-petch/700.css';
+import '@fontsource-variable/hanken-grotesk';
+import '@fontsource-variable/jetbrains-mono';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0B0F1A" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_MX" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta name="twitter:card" content="summary" />
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <slot />
+
+    <script>
+      // Menú móvil
+      const toggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
+      const menu = document.getElementById('menu');
+      toggle?.addEventListener('click', () => {
+        const open = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', String(!open));
+        menu?.classList.toggle('is-open', !open);
+      });
+      menu?.addEventListener('click', (event) => {
+        if ((event.target as HTMLElement).closest('a')) {
+          toggle?.setAttribute('aria-expanded', 'false');
+          menu.classList.remove('is-open');
+        }
+      });
+
+      // Copiar correo
+      const copyBtn = document.querySelector<HTMLButtonElement>('[data-copy]');
+      const status = document.getElementById('copy-status');
+      copyBtn?.addEventListener('click', async () => {
+        if (!status) return;
+        try {
+          await navigator.clipboard.writeText(copyBtn.dataset.copy ?? '');
+          status.textContent = 'Correo copiado al portapapeles.';
+        } catch {
+          status.textContent = 'No se pudo copiar. Selecciona el correo manualmente.';
+        }
+        setTimeout(() => (status.textContent = ''), 3500);
+      });
+
+      // Secuencia de arranque del hero (una sola vez)
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const lines = Array.from(document.querySelectorAll<HTMLElement>('[data-boot]'));
+      if (!reduce && lines.length) {
+        const texts = lines.map((line) => line.textContent ?? '');
+        lines.forEach((line) => {
+          line.textContent = '';
+          line.classList.add('is-pending');
+        });
+        let index = 0;
+        const typeNext = () => {
+          if (index >= lines.length) return;
+          const el = lines[index];
+          const text = texts[index];
+          el.classList.remove('is-pending');
+          el.classList.add('is-typing');
+          let count = 0;
+          const tick = () => {
+            count += 1;
+            el.textContent = text.slice(0, count);
+            if (count < text.length) {
+              setTimeout(tick, 16);
+            } else {
+              el.classList.remove('is-typing');
+              index += 1;
+              setTimeout(typeNext, 140);
+            }
+          };
+          tick();
+        };
+        setTimeout(typeNext, 250);
+      }
+    </script>
+  </body>
+</html>

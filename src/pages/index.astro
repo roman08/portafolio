@@ -1,0 +1,353 @@
+---
+import Base from '../layouts/Base.astro';
+import { site, stack, projects } from '../data/site';
+
+const year = new Date().getFullYear();
+const title = `${site.name}, ${site.role}`;
+---
+
+<Base title={title} description={site.description}>
+  <header class="site-header">
+    <div class="wrap site-header__bar">
+      <a class="brand" href="#inicio" aria-label="Román Madrigal, inicio">
+        <svg viewBox="0 0 64 64" aria-hidden="true">
+          <defs>
+            <linearGradient id="brand-g" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#00F0FF"></stop>
+              <stop offset="1" stop-color="#FF2BD6"></stop>
+            </linearGradient>
+          </defs>
+          <path d="M0 0H50L64 14V64H14L0 50Z" fill="#0B0F1A"></path>
+          <path d="M2 2H49L62 15V62H15L2 49Z" fill="none" stroke="url(#brand-g)" stroke-width="3"></path>
+          <path
+            d="M20 46V18H33C39 18 42 21 42 26C42 31 39 34 33 34H20M33 34L44 46"
+            fill="none"
+            stroke="#E8EDFF"
+            stroke-width="4"
+            stroke-linejoin="round"></path>
+        </svg>
+        <span>{site.name}</span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M3 7h18M3 12h18M3 17h18"></path>
+        </svg>
+      </button>
+
+      <nav class="nav" id="menu" aria-label="Principal">
+        <a href="#sobre-mi">Sobre mí</a>
+        <a href="#stack">Stack</a>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#ia">IA</a>
+        <a href="#estudio">Estudio</a>
+        <a class="btn btn--small" href="#contacto">Contactar</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <!-- Hero -->
+    <section class="hero" id="inicio">
+      <div class="wrap hero__grid">
+        <div>
+          <div class="boot" aria-hidden="true">
+            <span class="boot__line" data-boot>iniciar perfil --stack fullstack</span>
+            <span class="boot__line" data-boot>cargar 9+ años de experiencia ... listo</span>
+            <span class="boot__line" data-boot>conectar agentes, MCP y APIs de LLM ... en línea</span>
+          </div>
+
+          <h1>
+            <span class="glitch" data-text="Román">Román</span>
+            <span class="glitch" data-text="Madrigal">Madrigal</span>
+          </h1>
+          <p class="hero__role">{site.role}</p>
+          <p class="hero__lead">
+            Construyo aplicaciones web de punta a punta, del diseño de la interfaz a la base de datos y el
+            despliegue, con IA integrada en mi forma de trabajar.
+          </p>
+
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#proyectos">Ver proyectos</a>
+            <a class="btn" href={site.cv} download>Descargar CV</a>
+            <a class="btn" href="#contacto">Escribirme</a>
+          </div>
+        </div>
+
+        <div class="portrait">
+          <div class="portrait__frame">
+            <div class="portrait__body">
+              <div class="portrait__mark" aria-hidden="true">RM</div>
+              <!-- Coloca tu foto en public/foto.jpg. Si no existe, se muestra el monograma. -->
+              <img
+                src="/foto.jpg"
+                alt="Retrato de Román Madrigal"
+                width="800"
+                height="1000"
+                loading="eager"
+                onerror="this.remove()"
+              />
+              <div class="portrait__caption">
+                <span class="pulse" aria-hidden="true"></span>
+                <span>Disponible para trabajo remoto o reubicación en México</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sobre mí -->
+    <section class="section" id="sobre-mi">
+      <div class="wrap">
+        <div class="section__head"><h2>Sobre mí</h2></div>
+        <div class="about">
+          <div class="about__text">
+            <p>
+              Soy <strong>desarrollador Full Stack con más de 9 años de experiencia</strong>. He construido
+              sistemas web completos para empresas privadas y para el gobierno, con Angular, React, Node.js y
+              Laravel como herramientas de todos los días.
+            </p>
+            <p>
+              Desde <strong>Moriah Studio</strong> diseño y desarrollo sitios y sistemas para negocios. Y en el
+              día a día trabajo con Claude Code, GitHub Copilot y ChatGPT para prototipar, revisar y entregar más
+              rápido, sin soltar el criterio técnico.
+            </p>
+          </div>
+
+          <dl class="facts">
+            <div>
+              <dt>Base</dt>
+              <dd>Villahermosa, Tabasco</dd>
+            </div>
+            <div>
+              <dt>Experiencia</dt>
+              <dd>9+ años</dd>
+            </div>
+            <div>
+              <dt>Formación</dt>
+              <dd>Ingeniería en Sistemas Computacionales</dd>
+            </div>
+            <div>
+              <dt>Modalidad</dt>
+              <dd>Remoto o reubicación en México</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stack -->
+    <section class="section" id="stack">
+      <div class="wrap">
+        <div class="section__head"><h2>Stack</h2></div>
+        <div class="stack-grid">
+          {
+            stack.map((group) => (
+              <div class="stack-group">
+                <h3>{group.title}</h3>
+                <ul>
+                  {group.items.map((item) => (
+                    <li class="chip">{item}</li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Proyectos -->
+    <section class="section" id="proyectos">
+      <div class="wrap">
+        <div class="section__head"><h2>Proyectos</h2></div>
+        <div class="projects">
+          {
+            projects.map((p) => (
+              <article class:list={['card', { 'card--featured': p.featured }]} style={`--accent:${p.accent}`}>
+                <div class="card__frame">
+                  <div class="card__body">
+                    <div class="card__bar" aria-hidden="true">
+                      <span class="card__dots">
+                        <i />
+                        <i />
+                        <i />
+                      </span>
+                      <span>{p.host}</span>
+                    </div>
+                    <div class="card__content">
+                      <h3>{p.title}</h3>
+                      {p.note && <span class="card__note">{p.note}</span>}
+                      <p>{p.desc}</p>
+                      <ul class="tags">
+                        {p.tags.map((tag) => (
+                          <li class="tag">{tag}</li>
+                        ))}
+                      </ul>
+                      <div class="card__links">
+                        <a class="btn btn--small" href={p.live} target="_blank" rel="noopener noreferrer">
+                          Ver demo<span class="sr-only"> de {p.title}</span>
+                        </a>
+                        {p.code && (
+                          <a
+                            class="btn btn--small btn--ghost"
+                            href={p.code}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            Ver código<span class="sr-only"> de {p.title}</span>
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- IA -->
+    <section class="section" id="ia">
+      <div class="wrap">
+        <div class="section__head"><h2>Desarrollo con IA</h2></div>
+        <div class="ai-grid">
+          <div class="ai-item">
+            <h3>Herramientas diarias</h3>
+            <p>
+              Claude Code, GitHub Copilot y ChatGPT forman parte de mi flujo para prototipar, depurar y
+              revisar código.
+            </p>
+          </div>
+          <div class="ai-item">
+            <h3>Agentes y MCP</h3>
+            <p>
+              Orquesto agentes y conecto herramientas externas con el Model Context Protocol para automatizar
+              tareas de varios pasos.
+            </p>
+          </div>
+          <div class="ai-item">
+            <h3>APIs de LLM</h3>
+            <p>Integro modelos de lenguaje en aplicaciones web, desde el backend hasta la interfaz.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trayectoria -->
+    <section class="section" id="trayectoria">
+      <div class="wrap">
+        <div class="section__head"><h2>Trayectoria</h2></div>
+        <div class="path">
+          <div>
+            <h3>Sector privado</h3>
+            <ul>
+              <li><p>Softrek</p></li>
+              <li><p>Plexus</p></li>
+              <li><p>IntegraIt</p></li>
+            </ul>
+          </div>
+          <div>
+            <h3>Sector público</h3>
+            <ul>
+              <li><p>Gobierno del Estado de Tabasco</p></li>
+            </ul>
+          </div>
+          <div>
+            <h3>Formación</h3>
+            <ul>
+              <li><p>Ingeniería en Sistemas Computacionales</p></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Estudio -->
+    <section class="section" id="estudio">
+      <div class="wrap">
+        <div class="studio">
+          <div class="studio__frame">
+            <div class="studio__body">
+              <div>
+                <h2>Moriah Studio</h2>
+                <p>
+                  Mi estudio para negocios que quieren crecer con tecnología. Diseño sitios que se ven bien,
+                  cargan rápido y llevan al cliente a contactarte.
+                </p>
+                <a class="btn btn--primary" href={site.studio} target="_blank" rel="noopener noreferrer">
+                  Visitar Moriah Studio
+                </a>
+              </div>
+              <ul class="services">
+                <li>
+                  <strong>Diseño web</strong>
+                  <span>Sitios y landings a la medida de tu marca.</span>
+                </li>
+                <li>
+                  <strong>Automatización</strong>
+                  <span>Procesos que dejan de depender de tareas manuales.</span>
+                </li>
+                <li>
+                  <strong>Desarrollo a la medida</strong>
+                  <span>Sistemas y aplicaciones web para lo que tu negocio necesita.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contacto -->
+    <section class="section" id="contacto">
+      <div class="wrap contact">
+        <div>
+          <h2>¿Tienes un proyecto o una vacante?</h2>
+          <p class="lead">
+            Cuéntame qué necesitas. Respondo por correo y también puedes escribirme por LinkedIn.
+          </p>
+          <div class="contact__actions">
+            <a class="btn btn--primary" href={`mailto:${site.email}`}>Escribirme por correo</a>
+            <a class="btn" href={site.cv} download>Descargar CV</a>
+          </div>
+        </div>
+
+        <div>
+          <ul class="links">
+            <li>
+              <div>
+                <small>Correo</small>
+                <a href={`mailto:${site.email}`}>{site.email}</a>
+              </div>
+              <button class="btn btn--small" type="button" data-copy={site.email}>Copiar</button>
+            </li>
+            <li>
+              <div>
+                <small>LinkedIn</small>
+                <a href={site.linkedin} target="_blank" rel="noopener noreferrer">roman-madrigal</a>
+              </div>
+            </li>
+            <li>
+              <div>
+                <small>GitHub</small>
+                <a href={site.github} target="_blank" rel="noopener noreferrer">roman08</a>
+              </div>
+            </li>
+          </ul>
+          <p class="copy-status" id="copy-status" role="status" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>© {year} {site.name}</span>
+      <span>{site.location}</span>
+    </div>
+  </footer>
+</Base>
