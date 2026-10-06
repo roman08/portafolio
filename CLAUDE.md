@@ -35,13 +35,13 @@ Futurista pro con esencia ciberpunk elegante. Restricción: la audacia vive en e
 - Hosting en Netlify con subdominio por ahora (sin dominio propio). Cuando exista, agregar `site` en `astro.config.mjs`
 - Nácar y Umbra llevan la etiqueta "Concepto de práctica" porque son landings de negocios ficticios
 - La Trayectoria es una línea de tiempo con cargos y fechas tomados del CV de Román (sin cifras inventadas); los logros solo reflejan lo que dice su CV
+- `public/foto.jpg` se generó a partir de un original de 320 px (recorte 4:5, fondo del sitio); conviene reemplazarla con una de mayor resolución
 - La URL de la calculadora de pintura es `caluladora-pintura.netlify.app` (tal como está publicada)
 
 ## Pendiente
 
-1. Agregar `public/foto.jpg` (4:5, mínimo 800×1000). Sin ella se muestra el monograma "RM"
-2. Mantener `public/cv-roman-madrigal.pdf` al día cuando cambie el CV
-3. Capturas de las demos: correr `scripts/capturas.mjs` (ver README) y hacer commit de `public/proyectos/*.jpg`. Mientras no existan, las tarjetas muestran iniciales sobre una cuadrícula
-4. Contacto: evaluar enlace directo a WhatsApp de Moriah Studio
-5. Valorar versión en inglés y dos casos de estudio (RetailIA y el pipeline de agentes de Moriah)
-6. Dominio propio (agregar `site` en `astro.config.mjs`) y imagen para compartir el enlace (Open Graph)
+1. Mantener `public/cv-roman-madrigal.pdf` al día cuando cambie el CV
+2. Capturas de las demos: correr `scripts/capturas.mjs` (ver README) y hacer commit de `public/proyectos/*.jpg`. Mientras no existan, las tarjetas muestran iniciales sobre una cuadrícula
+3. Contacto: evaluar enlace directo a WhatsApp de Moriah Studio
+4. Valorar versión en inglés y dos casos de estudio (RetailIA y el pipeline de agentes de Moriah)
+5. Dominio propio (agregar `site` en `astro.config.mjs`) y imagen para compartir el enlace (Open Graph)
