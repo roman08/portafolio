@@ -35,7 +35,7 @@ Futurista pro con esencia ciberpunk elegante. Restricción: la audacia vive en e
 - Hosting en Netlify con subdominio por ahora (sin dominio propio). Cuando exista, agregar `site` en `astro.config.mjs`
 - Nácar y Umbra llevan la etiqueta "Concepto de práctica" porque son landings de negocios ficticios
 - La Trayectoria es una línea de tiempo con cargos y fechas tomados del CV de Román (sin cifras inventadas); los logros solo reflejan lo que dice su CV
-- `public/foto.jpg` se generó a partir de un original de 320 px (recorte 4:5, fondo del sitio); conviene reemplazarla con una de mayor resolución
+- `public/foto.jpg` es un retrato natural (recorte 4:5 desde foto de 1200×1600, sin quitar fondo)
 - La URL de la calculadora de pintura es `caluladora-pintura.netlify.app` (tal como está publicada)
 
 ## Pendiente
