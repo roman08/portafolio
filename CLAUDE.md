@@ -17,6 +17,7 @@ Sitio personal en Astro, desplegado en Netlify. Responde en español y sé conci
 - `src/layouts/Base.astro`: head, fuentes y scripts (menú móvil, copiar correo, arranque tipo terminal del hero)
 - `src/styles/global.css`: tokens en `:root` y todos los estilos
 - `src/styles/features.css`: capturas en tarjetas, línea de tiempo y terminal
+- `src/scripts/motion.ts` + `src/styles/motion.css`: barra de progreso de scroll, sección activa en el menú, brillo de tarjetas y línea de tiempo que se enciende (única animación de entrada; se desactiva con `prefers-reduced-motion`)
 - `src/scripts/terminal.ts`: terminal interactiva (comandos: ayuda, sobre, stack, proyectos, experiencia, contacto, cv, limpiar)
 - `scripts/capturas.mjs`: genera las capturas de las demos con Playwright
 - `public/`: favicon, y aquí van `foto.jpg` y `cv-roman-madrigal.pdf`
@@ -48,4 +49,5 @@ Futurista pro con esencia ciberpunk elegante. Restricción: la audacia vive en e
 2. Capturas de Biblia App y Calculadora de pintura (faltan; las otras tres ya están en `public/proyectos/`)
 3. Contacto: evaluar enlace directo a WhatsApp de Moriah Studio
 4. Valorar versión en inglés; enlazar el repo de RetailIA en su caso si es público
-5. Dominio propio (definir `site` en `astro.config.mjs`; mientras tanto se usa la URL de Netlify). La imagen para compartir ya existe en `public/og.png`
+5. Ideas de movimiento pendientes: inclinación leve del retrato con el mouse (solo escritorio), transiciones entre páginas (View Transitions), comandos extra en la terminal (`casos`, `foto`). Para que las tarjetas muestren más del sitio al pasar el cursor hacen falta capturas largas (ajustar `scripts/capturas.mjs`)
+6. Dominio propio (definir `site` en `astro.config.mjs`; mientras tanto se usa la URL de Netlify). La imagen para compartir ya existe en `public/og.png`

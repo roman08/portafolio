@@ -5,6 +5,7 @@ import '@fontsource/chakra-petch/700.css';
 import '@fontsource-variable/hanken-grotesk';
 import '@fontsource-variable/jetbrains-mono';
 import '../styles/global.css';
+import '../styles/motion.css';
 
 interface Props {
   title: string;
@@ -105,6 +106,9 @@ const pageUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : unde
         };
         setTimeout(typeNext, 250);
       }
+    </script>
+    <script>
+      import '../scripts/motion';
     </script>
   </body>
 </html>

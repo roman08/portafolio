@@ -1,0 +1,77 @@
+/* ---------- Barra de progreso de scroll ---------- */
+.progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--cyan), var(--magenta));
+  transform: scaleX(0);
+  transform-origin: left;
+  pointer-events: none;
+}
+
+/* ---------- Sección activa en el menú ---------- */
+.nav a:not(.btn)[aria-current='true'] {
+  color: var(--text);
+}
+.nav a:not(.btn)[aria-current='true']::after {
+  transform: scaleX(1);
+}
+
+/* ---------- Tarjetas: brillo con el color del proyecto ---------- */
+.card {
+  transition: filter 0.35s;
+}
+.card:hover,
+.card:focus-within {
+  filter: drop-shadow(0 0 22px color-mix(in srgb, var(--accent) 38%, transparent));
+}
+.card__media::after {
+  transition: opacity 0.35s;
+}
+.card:hover .card__media::after,
+.card:focus-within .card__media::after {
+  opacity: 0.35;
+}
+
+/* ---------- Línea de tiempo que se enciende ---------- */
+.tl-body::after {
+  content: '';
+  position: absolute;
+  left: -1px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(0, 240, 255, 0.6);
+}
+.tl-item:last-child .tl-body::after {
+  background: linear-gradient(180deg, rgba(0, 240, 255, 0.6), transparent);
+}
+
+.tl-anim .tl-body::after {
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.tl-anim .tl-item.is-in .tl-body::after {
+  transform: scaleY(1);
+}
+.tl-anim .tl-item:not(.is-in) .tl-body::before {
+  border-color: var(--muted);
+  background: var(--bg);
+  box-shadow: none;
+}
+.tl-anim .tl-body::before {
+  transition:
+    border-color 0.4s,
+    box-shadow 0.4s,
+    background 0.4s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .card__media::after {
+    transition: none;
+  }
+}
