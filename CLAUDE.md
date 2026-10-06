@@ -41,7 +41,7 @@ Futurista pro con esencia ciberpunk elegante. Restricción: la audacia vive en e
 ## Pendiente
 
 1. Mantener `public/cv-roman-madrigal.pdf` al día cuando cambie el CV
-2. Capturas de las demos: correr `scripts/capturas.mjs` (ver README) y hacer commit de `public/proyectos/*.jpg`. Mientras no existan, las tarjetas muestran iniciales sobre una cuadrícula
+2. Capturas de Biblia App y Calculadora de pintura (faltan; las otras tres ya están en `public/proyectos/`)
 3. Contacto: evaluar enlace directo a WhatsApp de Moriah Studio
 4. Valorar versión en inglés y dos casos de estudio (RetailIA y el pipeline de agentes de Moriah)
-5. Dominio propio (agregar `site` en `astro.config.mjs`) y imagen para compartir el enlace (Open Graph)
+5. Dominio propio (definir `site` en `astro.config.mjs`; mientras tanto se usa la URL de Netlify). La imagen para compartir ya existe en `public/og.png`
