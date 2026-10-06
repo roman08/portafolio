@@ -14,6 +14,9 @@ Sitio personal en Astro, desplegado en Netlify. Responde en español y sé conci
 - `src/pages/index.astro`: todas las secciones
 - `src/layouts/Base.astro`: head, fuentes y scripts (menú móvil, copiar correo, arranque tipo terminal del hero)
 - `src/styles/global.css`: tokens en `:root` y todos los estilos
+- `src/styles/features.css`: capturas en tarjetas, línea de tiempo y terminal
+- `src/scripts/terminal.ts`: terminal interactiva (comandos: ayuda, sobre, stack, proyectos, experiencia, contacto, cv, limpiar)
+- `scripts/capturas.mjs`: genera las capturas de las demos con Playwright
 - `public/`: favicon, y aquí van `foto.jpg` y `cv-roman-madrigal.pdf`
 
 ## Dirección de diseño
@@ -31,14 +34,14 @@ Futurista pro con esencia ciberpunk elegante. Restricción: la audacia vive en e
 
 - Hosting en Netlify con subdominio por ahora (sin dominio propio). Cuando exista, agregar `site` en `astro.config.mjs`
 - Nácar y Umbra llevan la etiqueta "Concepto de práctica" porque son landings de negocios ficticios
-- La sección Trayectoria solo lista empresas y formación, sin cargos ni fechas inventados
+- La Trayectoria es una línea de tiempo con cargos y fechas tomados del CV de Román (sin cifras inventadas); los logros solo reflejan lo que dice su CV
 - La URL de la calculadora de pintura es `caluladora-pintura.netlify.app` (tal como está publicada)
 
 ## Pendiente
 
 1. Agregar `public/foto.jpg` (4:5, mínimo 800×1000). Sin ella se muestra el monograma "RM"
-2. Agregar `public/cv-roman-madrigal.pdf`. Sin él, "Descargar CV" da 404
-3. Trayectoria: convertir en línea de tiempo cuando haya cargos y fechas
+2. Mantener `public/cv-roman-madrigal.pdf` al día cuando cambie el CV
+3. Capturas de las demos: correr `scripts/capturas.mjs` (ver README) y hacer commit de `public/proyectos/*.jpg`. Mientras no existan, las tarjetas muestran iniciales sobre una cuadrícula
 4. Contacto: evaluar enlace directo a WhatsApp de Moriah Studio
-5. Valorar versión en inglés
-6. Subir a un repo nuevo y conectar a Netlify (`netlify.toml` ya define el build)
+5. Valorar versión en inglés y dos casos de estudio (RetailIA y el pipeline de agentes de Moriah)
+6. Dominio propio (agregar `site` en `astro.config.mjs`) y imagen para compartir el enlace (Open Graph)

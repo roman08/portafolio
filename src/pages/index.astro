@@ -1,9 +1,26 @@
 ---
 import Base from '../layouts/Base.astro';
-import { site, stack, projects } from '../data/site';
+import { site, stack, projects, experience } from '../data/site';
+import '../styles/features.css';
 
 const year = new Date().getFullYear();
 const title = `${site.name}, ${site.role}`;
+
+const termData = {
+  name: site.name,
+  role: site.role,
+  email: site.email,
+  linkedin: site.linkedin,
+  github: site.github,
+  cv: site.cv,
+  location: site.location,
+  stack,
+  projects: projects.map((p) => ({ title: p.title, live: p.live, code: p.code ?? null })),
+  experience: experience
+    .filter((e) => e.kind === 'work')
+    .map((e) => ({ role: e.role, company: e.company, start: e.start, end: e.end })),
+};
+const shortcuts = ['ayuda', 'sobre', 'stack', 'proyectos', 'experiencia', 'contacto', 'cv'];
 ---
 
 <Base title={title} description={site.description}>
@@ -39,7 +56,8 @@ const title = `${site.name}, ${site.role}`;
         <a href="#sobre-mi">Sobre mí</a>
         <a href="#stack">Stack</a>
         <a href="#proyectos">Proyectos</a>
-        <a href="#ia">IA</a>
+        <a href="#trayectoria">Trayectoria</a>
+        <a href="#terminal">Terminal</a>
         <a href="#estudio">Estudio</a>
         <a class="btn btn--small" href="#contacto">Contactar</a>
       </nav>
@@ -176,6 +194,19 @@ const title = `${site.name}, ${site.role}`;
                       </span>
                       <span>{p.host}</span>
                     </div>
+                    <div class="card__main">
+                    <figure class="card__media">
+                      <span class="card__mark" aria-hidden="true">{p.mark}</span>
+                      <img
+                        src={`/proyectos/${p.slug}.jpg`}
+                        alt={`Captura de ${p.title}`}
+                        width="1280"
+                        height="800"
+                        loading="lazy"
+                        decoding="async"
+                        onerror="this.remove()"
+                      />
+                    </figure>
                     <div class="card__content">
                       <h3>{p.title}</h3>
                       {p.note && <span class="card__note">{p.note}</span>}
@@ -200,6 +231,7 @@ const title = `${site.name}, ${site.role}`;
                           </a>
                         )}
                       </div>
+                    </div>
                     </div>
                   </div>
                 </div>
@@ -237,32 +269,92 @@ const title = `${site.name}, ${site.role}`;
       </div>
     </section>
 
+    <!-- Terminal -->
+    <section class="section" id="terminal">
+      <div class="wrap">
+        <div class="section__head"><h2>Terminal</h2></div>
+        <p class="lead">Escribe un comando o toca un atajo para explorar mi perfil.</p>
+
+        <div class="term" data-term>
+          <div class="term__frame">
+            <div class="term__body">
+              <div class="term__bar" aria-hidden="true">
+                <span class="card__dots">
+                  <i />
+                  <i />
+                  <i />
+                </span>
+                <span>roman@portafolio:~</span>
+              </div>
+              <div
+                class="term__screen"
+                role="log"
+                aria-live="polite"
+                aria-label="Salida de la terminal"
+                tabindex="0"
+                data-term-out
+              >
+              </div>
+              <form class="term__form" data-term-form autocomplete="off">
+                <span class="term__prompt" aria-hidden="true"><span class="term__host">roman@portafolio:~</span>$</span>
+                <input
+                  class="term__input"
+                  id="term-input"
+                  name="comando"
+                  type="text"
+                  aria-label="Escribe un comando"
+                  autocomplete="off"
+                  autocapitalize="off"
+                  autocorrect="off"
+                  spellcheck="false"
+                  enterkeyhint="send"
+                />
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="term__chips" role="group" aria-label="Atajos de comandos">
+          {shortcuts.map((c) => (
+            <button class="chip-btn" type="button" data-cmd={c}>{c}</button>
+          ))}
+        </div>
+
+        <noscript>
+          <p class="lead">Activa JavaScript para usar la terminal. Mientras tanto, escríbeme a {site.email}.</p>
+        </noscript>
+        <script id="term-data" type="application/json" is:inline set:html={JSON.stringify(termData)} />
+      </div>
+    </section>
+
     <!-- Trayectoria -->
     <section class="section" id="trayectoria">
       <div class="wrap">
         <div class="section__head"><h2>Trayectoria</h2></div>
-        <div class="path">
-          <div>
-            <h3>Sector privado</h3>
-            <ul>
-              <li><p>Softrek</p></li>
-              <li><p>Plexus</p></li>
-              <li><p>IntegraIt</p></li>
-            </ul>
-          </div>
-          <div>
-            <h3>Sector público</h3>
-            <ul>
-              <li><p>Gobierno del Estado de Tabasco</p></li>
-            </ul>
-          </div>
-          <div>
-            <h3>Formación</h3>
-            <ul>
-              <li><p>Ingeniería en Sistemas Computacionales</p></li>
-            </ul>
-          </div>
-        </div>
+        <ol class="timeline" role="list">
+          {
+            experience.map((e) => (
+              <li class="tl-item">
+                <p class="tl-when">
+                  <span>{e.start} –</span>
+                  <span>{e.end}</span>
+                </p>
+                <div class="tl-body">
+                  <h3 class="tl-role">{e.role}</h3>
+                  <p class="tl-company">{e.company}</p>
+                  <span class="tl-tag">{e.tag}</span>
+                  {e.points.length > 0 && (
+                    <ul class="tl-points">
+                      {e.points.map((pt) => (
+                        <li>{pt}</li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </li>
+            ))
+          }
+        </ol>
       </div>
     </section>
 
@@ -350,4 +442,7 @@ const title = `${site.name}, ${site.role}`;
       <span>{site.location}</span>
     </div>
   </footer>
+  <script>
+    import '../scripts/terminal';
+  </script>
 </Base>

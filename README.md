@@ -15,7 +15,19 @@ npm run build    # genera dist/
 | Archivo | Para qué |
 |---|---|
 | `public/foto.jpg` | Tu retrato (proporción 4:5, mínimo 800×1000). Mientras no exista, se muestra el monograma "RM". |
-| `public/cv-roman-madrigal.pdf` | El CV que descargan los botones "Descargar CV". Sin este archivo, el botón dará 404. |
+| `public/cv-roman-madrigal.pdf` | El CV que descargan los botones "Descargar CV". Ya incluido; reemplázalo cuando lo actualices. |
+
+## Capturas de los proyectos
+
+Las tarjetas muestran `public/proyectos/<slug>.jpg` (slugs en `src/data/site.ts`). Para generarlas desde tus demos publicadas:
+
+```bash
+npm i --no-save playwright
+npx playwright install chromium
+node scripts/capturas.mjs
+```
+
+Revisa las imágenes, haz commit y push. Sin capturas, la tarjeta muestra las iniciales del proyecto.
 
 ## Dónde editar
 
